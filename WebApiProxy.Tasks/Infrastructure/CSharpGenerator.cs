@@ -22,14 +22,13 @@ namespace WebApiProxy.Tasks.Infrastructure
             return source;
         }
 
-
         private Metadata GetProxy()
         {
             var url = string.Empty;
 
             try
             {
-                using (var client = new HttpClient())
+                using (var client = new HttpClient(new HttpClientHandler {UseDefaultCredentials = true,PreAuthenticate = true}))
                 {
                     client.DefaultRequestHeaders.Add("X-Proxy-Type", "metadata");
                     var response = client.GetAsync(config.Endpoint).Result;

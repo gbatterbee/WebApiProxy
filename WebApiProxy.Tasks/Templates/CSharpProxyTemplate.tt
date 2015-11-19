@@ -208,6 +208,14 @@ namespace <#= Configuration.Namespace#>.Clients
 	public partial class <#=definition.Name#><#= Configuration.ClientSuffix#> : ClientBase, Interfaces.I<#=definition.Name#><#=Configuration.ClientSuffix#>
 	{		
 
+	    public static <#=definition.Name#><#= Configuration.ClientSuffix#> Make(Uri uri)
+        {
+            var handler = new HttpClientHandler {UseDefaultCredentials = true, PreAuthenticate = true};
+			var client = new <#=definition.Name#><#= Configuration.ClientSuffix#>(handler);
+			client.HttpClient.BaseAddress =  uri;
+			return client;
+        }
+
 		/// <summary>
 		/// <#= definition.Description.ToSummary() #>
 		/// </summary>
